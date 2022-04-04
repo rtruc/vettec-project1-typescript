@@ -2,6 +2,7 @@
     display: flex;
     flex-direction: column;
     margin: auto;
+    margin-top: 40px;
     padding-top: 10px;
 
     flex-wrap: no-wrap;

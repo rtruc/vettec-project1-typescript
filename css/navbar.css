@@ -1,15 +1,27 @@
 .navbar {
     display: flex;
     flex-direction: row;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    border-top: 10px;
+
     background-color: rgba(128, 128, 128, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);    
 
     flex-wrap: no-wrap;
     justify-content: flex-start;
     align-items: center;
     margin: auto;
 
-    border-radius: 5px;
-    max-width: 1000px;
+
+
+    /* border-radius: 5px; */
+    /* max-width: 1000px; */
 
 }
 
