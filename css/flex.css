@@ -1,0 +1,31 @@
+.flex-row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: no-wrap;
+
+    justify-content: space-evenly;
+    gap: 10px;
+
+    align-items: center;
+}
+
+.flex-column {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+
+    flex-wrap: no-wrap;
+
+    gap: 10px;
+
+    align-items: center;
+    max-width: 1000px;
+}
+
+.map-img {
+    max-width: 100%;
+    min-width: 10%;
+    max-height: 300px;
+    border-radius: 10px;
+
+}
