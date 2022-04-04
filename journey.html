@@ -3,18 +3,31 @@
 <!-- Proper use of GitHub to maintain the versioning of your webpage -->
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Every page should maintain thematic consistency with font, coloring, etc. -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Every page should maintain thematic consistency with font, coloring, etc. -->
+    <link rel="stylesheet" href="./css/navbar.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+
 
     <title>My Journey</title>
 </head>
 
 <body>
     <!-- Each page should have a header/navigation bar containing links to your website's other pages -->
+    <div class="navbar" id="top">
+        <div class="nav-item-left-end"><a href="./index.html">Home</a></div>
+        <div class="nav-item"><a href="./about-me.html">About Me</a></div>
+        <div class="nav-item"><a class="active" href="#top">My Journey</a></div>
+        <form class="search-form" action="www.google.com">
+            <input class="search-field" type="text" id="search" name="search" placeholder="search">
+            <button class="search-button" type="submit">Go </button>
+        </form>
+    </div>
+
 
     <!-- JOURNEY PAGE -->
     <!-- Tells a story of who you are and how you got to where you are today -->
