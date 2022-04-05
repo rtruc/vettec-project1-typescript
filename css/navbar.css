@@ -46,23 +46,25 @@
     padding: 10px 20px;
     text-decoration: none;
     color: white;
+    transition: background-color .2s ease-out 100ms;
 }
 
 .nav-item a:hover,
 .nav-item-left-end a:hover {
-    background-color: rgb(128, 128, 128);
+    /* background-color: rgb(206, 239, 251); */
+
+    background-color: rgb(203, 201, 201);
 }
 
-.nav-item-left-end a:hover {
+/* .nav-item-left-end a:hover {
     border-radius: 5px 0px 0px 5px;
-
-}
+} */
 
 
 .active,
 .active-left-end {
-    font-weight: bold;
-    background-color: rgb(105, 105, 105);
+    font-weight: bolder;
+    background-color: rgba(105, 105, 105, 0.648);
 }
 
 /* .active-left-end {
@@ -72,24 +74,43 @@
 
 .search-field,
 .search-button {
-    border: 1px solid gray;
+    border: 1px solid rgb(191, 189, 189);
     background-color: rgb(246, 246, 246);
     border-radius: 5px;
     padding: 3px 5px;
     /* margin-right: 10px; */
     font-family: 'Lato', sans-serif;
+    /* justify-content: right; */
+
+
+
     /* display: none; */
 }
 
+::placeholder {
+    color: rgb(188, 188, 188);
+}
+
 .search-field {
+    width: 26%;
+    display: block;
+    background-color: rgb(248, 248, 248);
+
+    /* -webkit-transition: width 0.4s ease-in-out; */
+    transition: width 0.4s ease-in-out,
+        background-color 0.4s ease-in-out,
+        border-color 0.4s ease-in-out;
+
+    /* text-align: right; */
+    margin-right: 10;
+    margin-left: auto;
     /* min-width: 10px; */
     /* max-width: 10px; */
 }
 
-
-
 .search-field:focus {
-    /* background-color: rgb(206, 239, 251); */
+    background-color: rgb(223, 246, 255);
+    width: 75%;
     outline: none;
     border-color: #7cb7e7;
     box-shadow: 0 0 15px #7cb7e7;
@@ -98,8 +119,9 @@
 .search-form {
     /* border: none; */
     margin-right: 10px;
+
     /* display: none; */
-    
+
 }
 
 
@@ -107,14 +129,17 @@
     button.search-button {
         display: none;
     }
+
     div.nav-item a,
     div.nav-item-left-end a {
         padding: 10px 10px;
 
     }
+
     input.search-field {
         max-width: 95px;
     }
+
     form.search-form {
         margin-right: 5px;
     }
