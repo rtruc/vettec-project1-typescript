@@ -1,5 +1,3 @@
-// scrollButton = document.getElementById("active");
-
 let topButton;
 let images;
 let currentlyZoomedImage;
@@ -84,6 +82,7 @@ function buildNavBar() {
 
     navbar.appendChild(searchBar);
 }
+
 
 
 window.addEventListener('DOMContentLoaded', () => {
