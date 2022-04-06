@@ -49,6 +49,11 @@
     background-color: rgba(105, 105, 105, 0.648);
     cursor: pointer;
 }
+#active:hover {
+    font-weight: bolder;
+    background-color: rgba(130, 129, 129, 0.648);
+    cursor: pointer;
+}
 
 
 .search-field {
@@ -61,7 +66,7 @@
     border-radius: 5px;
     font-family: 'Lato', sans-serif;
 
-    background-image: url('../img/searchicon.png');
+    background-image: url('../../img/icons/searchicon.png');
     background-repeat: no-repeat;
     background-size: 19px;
     background-position: left;

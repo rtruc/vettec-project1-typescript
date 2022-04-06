@@ -1,5 +1,6 @@
-@import "./flex.css";
-@import "./gallery.css";
-@import "./navbar.css";
+@import "./sub/flex.css";
+@import "./sub/gallery.css";
+@import "./sub/navbar.css";
+@import "./sub/footer.css";
 @import url(http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext);
 /* <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css"> */

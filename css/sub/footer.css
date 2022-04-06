@@ -1,0 +1,42 @@
+.footer {
+    display: flex;
+    flex-direction: row;
+
+    flex-wrap: no-wrap;
+    justify-content: center;
+    align-items: stretch;
+
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    background-color: rgba(128, 128, 128, 0.75);
+
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.icon {
+    max-height: 20px;
+    margin-top: 5px;
+    /* margin: 0; */
+    /* margin: 5px 5px 0px 5px; */
+    /* padding: 5px 5px 0px 5px; */
+}
+
+.icon a:hover {
+    background-color: rgb(203, 201, 201);
+} 
+
+.footer-item {
+    /* padding: 0px 0px; */
+}
+
+.footer-item {
+    padding: 0px 5px;
+    transition: background-color .2s ease-out 100ms;
+}
+.footer-item:hover {
+    background-color: rgb(203, 201, 201);
+}

@@ -1,6 +1,7 @@
 let scripts = [
-    "./js/script.js",
-    "./js/navbar.js"
+    "./js/sub/script.js",
+    "./js/sub/navbar.js",
+    "./js/sub/footer.js"
             ];
 
 function loadScripts(script) {
@@ -8,14 +9,14 @@ function loadScripts(script) {
     scriptDiv.src = script;
     scriptDiv.async = false;
 
-    console.log(scriptDiv);
+    // console.log(scriptDiv);
 
     document.head.appendChild(scriptDiv)
 }
 
 for(let script of scripts) {
     loadScripts(script);
-    console.log(script);
+    // console.log(script);
 }
 
 // class Scripts extends HTMLScriptElement {
