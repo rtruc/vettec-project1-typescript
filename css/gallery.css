@@ -36,9 +36,7 @@
 
 .imgLink img
 {
-  /* height: 8rem; */
   transition:transform 0.25s ease;
-
 }
 .imgLink:active img, .imgLink:focus img
 {
@@ -46,26 +44,19 @@
     top: 50%;
     left: 50%; */
     transform: 
+        translate(50vh,50vw)    
+        scale(1.5);
         /* translateX(calc(50vw))    */
-        /* translate(calc(50% - 0.59em),calc(50% - 0.59em))    */
-        translate(50vh,50vw)   
         /* translateY(calc(50vh))      */
-    /* translate(calc(50vw), calc(50vh)) */
-            scale(1.5);
-
-
-    /* translateY(calc(50vh - 50%)),
-    translateX(calc(50vw - 50%)), */
-    /* translateX(50vh); */
+        /* translate(calc(50vw), calc(50vh)) */
+        /* translateY(calc(50vh - 50%)),
+        translateX(calc(50vw - 50%)), */
+        /* translateX(50vh); */
     /* position: fixed;
     top: 50%;
     left: 50%; */
-
-
-  /* height: 16rem; */
-}
-
-
+    /* height: 16rem; */
+  }
 /* .imgLink:active .imgTitle, .imgLink:focus .imgTitle {
     opacity: 0;
 } */
@@ -82,11 +73,6 @@
     min-width: 10%;
 
     border-radius: 10px;
-    
-    /* max-width: 1000px; */
-    /* max-height: 600px;
-    /* max-height: 100%;
-    min-height: 10%; */
 }
 
 
