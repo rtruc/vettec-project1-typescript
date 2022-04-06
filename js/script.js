@@ -37,22 +37,52 @@ function buildNavBar() {
                     ["nav-item", "./about-me.html", "About Me"],
                     ["nav-item", "./journey.html", "My Journey"]];
 
+    // Build NavBar Entries
     for(entry of entries){
-        console.log(entry);
-        // Build div based on entry
+        // Build div based on current entry
         let menuItem = document.createElement('div');
-        menuItem.classList.add("nav-item");
-        console.log(menuItem);
+        menuItem.classList.add(entry[0]);
+
+        let menuLink = document.createElement('a');
+
+        if(pageTitle == entry[2]) {
+            menuLink.id = "active";
+        } else {
+            menuLink.href = entry[1];
+        }
+        
+        menuLink.text = entry[2];
+
+        menuItem.appendChild(menuLink);
         
         // Attach div to navbar
+        navbar.appendChild(menuItem);
 
     }
 
 
-    // console.log(pageTitle);
-    // console.log(navbar);
+    // Build search bar
+    let searchBar = document.createElement('form');
+    searchBar.classList.add("search-form");
+    searchBar.action = "https://google.com/search";
+    searchBar.method = "get";
 
+    let input1 = document.createElement('input');
+    input1.type = "hidden";
+    input1.name = "sitesearch";
+    input1.value = "https://rtruc.github.io";
+    searchBar.appendChild(input1);
 
+    let input2 = document.createElement('input');
+    input2.classList.add("search-field");
+    input2.type = "text";
+    input2.id = "search";
+    input2.name = "q";
+    input2.autocomplete = "off";
+    input2.placeholder = "search;"
+    searchBar.appendChild(input2);
+
+    navbar.appendChild(searchBar);
 }
 
 
@@ -62,9 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
         images[i] = images[i].addEventListener('click', zoomImage);
     }
 
-
     buildNavBar();
-
 
     topButton = document.getElementById('active');
     topButton.addEventListener('click', scrollToTop);
