@@ -21,9 +21,7 @@ function loadScripts(scriptSrc) {
 }
 
 let promises = [];
-scripts.forEach(function (script) {
-    promises.push(loadScripts(script));
-});
+scripts.forEach(script => promises.push(loadScripts(script)));
 
 // console.log(promises);
 

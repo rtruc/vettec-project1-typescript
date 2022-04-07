@@ -1,7 +1,8 @@
 // All images should be sized appropriately and have alternative text displayed should the image fail to render
 let images;
 let currentlyZoomedImage;
-const imageQuality = "_small";
+const thumbnailQuality = "_thumbnail";
+const zoomQuality = "_medium";
 
 function buildPhotoGallery() {
     const sections = [
@@ -15,21 +16,31 @@ function buildPhotoGallery() {
     ];
     
     
-    for(let section of sections) {
+    
+    let promises = []
+    sections.forEach(section => {
         let filePath = [`./img/photos/${section}/`, `${section}.csv`]
-        fetchCSVFileAndBuildGallerySection(...filePath);
-    }
+        promises.push(fetchCSVFileAndBuildGallerySection(...filePath));
+    })
+
+    Promise.all(promises)
+        .then(result => console.log(result)) //'Galleries loaded'
+        .catch(section => console.log(section + ' failed'));
+
+    // for(let section of sections) {
+    //     let filePath = [`./img/photos/${section}/`, `${section}.csv`]
+    //     fetchCSVFileAndBuildGallerySection(...filePath);
+    // }
 }
 
 function fetchCSVFileAndBuildGallerySection(filePath, fileName) {
     fetch(filePath + fileName)
         .then(response => response.text())
         .then(responseText => parseCSVPhotoData(responseText))
-        // .then(parsedStrings => console.log(parsedStrings))
         .then(photoStrings => generatePhotoColumn(photoStrings, filePath))
         .then(photoSection => appendPhotoSectionToGallery(photoSection))
         // .then(enableClickToZoomOnImages())
-        .catch(reason => console.log("Oh shit!" + reason));
+        .catch(reason => console.log("Oops!" + reason));
 }
 
 function parseCSVPhotoData(csv){
@@ -95,7 +106,7 @@ function generatePhotoRow(photos, filePath) {
     
     for (let photo of photos) {
         rowDiv.innerHTML += `<img class="gallery-img" 
-                                  src="${filePath}${imageQuality}/${photo.fileName}" 
+                                  src="${filePath}${thumbnailQuality}/${photo.fileName}" 
                                   alt="${photo.altText}" 
                                   title="${photo.titleText}"/>`;
     }
@@ -111,6 +122,7 @@ function zoomImage() {
     if (currentlyZoomedImage == this) {
         this.style.transform = null;
         setTimeout(() => this.style.zIndex = null, 50);
+        this.src = this.src.replace(zoomQuality, thumbnailQuality);
         // this.style.zIndex = null;
         currentlyZoomedImage = null;
         return;
@@ -122,6 +134,8 @@ function zoomImage() {
         // setTimeout(() => currentlyZoomedImage.style.zIndex = null, 50);
         currentlyZoomedImage.style.transform = null;
         currentlyZoomedImage.style.zIndex = null;
+        currentlyZoomedImage.src = currentlyZoomedImage.src.replace(zoomQuality, thumbnailQuality);
+
 
     }
 
@@ -159,7 +173,7 @@ function zoomImage() {
     // console.log(this.src);
     // console.log(newSrc);
     
-    this.src = this.src.replace('_small', '_large');
+    this.src = this.src.replace(thumbnailQuality, zoomQuality);
     // let newSrc = this.src.replace('_small', '_large');
     // this.src = newSrc;
 
