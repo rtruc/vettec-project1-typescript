@@ -5,6 +5,7 @@ let currentlyZoomedImage;
 function scrollToTop() {
     // document.body.scrollTop = 0;
     // document.documentElement.scrollTop = 0;
+    console.log('Hey!');
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
@@ -32,15 +33,16 @@ function zoomImage() {
 
 
 
-window.addEventListener('DOMContentLoaded', () => {
+// window.addEventListener('DOMContentLoaded', () => {
+    
+// })
+
+window.addEventListener('load', () => {
     images = document.getElementsByClassName("gallery-img");
     for (let i = 0; i < images.length; i++) {
         images[i] = images[i].addEventListener('click', zoomImage);
     }
-
-    // buildNavBar_Programmatically();
-    // buildNavBar_TemplateStrings();
-
     topButton = document.getElementById('active');
+    // console.log(topButton);
     topButton.addEventListener('click', scrollToTop);
 })

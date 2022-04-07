@@ -17,6 +17,8 @@
 
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+
+    z-index: 10;
 }
 
 /* Right justify search box */
@@ -46,12 +48,12 @@
 
 #active {
     font-weight: bolder;
-    background-color: rgba(105, 105, 105, 0.648);
+    background-color: rgba(105, 105, 105, 0.887);
     cursor: pointer;
 }
 #active:hover {
     font-weight: bolder;
-    background-color: rgba(130, 129, 129, 0.648);
+    background-color: rgba(130, 129, 129, 0.895);
     cursor: pointer;
 }
 

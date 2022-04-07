@@ -15,23 +15,18 @@
 
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+
+    z-index: 10;
 }
 
 .icon {
     max-height: 20px;
     margin-top: 5px;
-    /* margin: 0; */
-    /* margin: 5px 5px 0px 5px; */
-    /* padding: 5px 5px 0px 5px; */
 }
 
 .icon a:hover {
     background-color: rgb(203, 201, 201);
 } 
-
-.footer-item {
-    /* padding: 0px 0px; */
-}
 
 .footer-item {
     padding: 0px 5px;

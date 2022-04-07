@@ -1,35 +1,35 @@
 let scripts = [
-    "./js/sub/script.js",
     "./js/sub/navbar.js",
-    "./js/sub/footer.js"
-            ];
+    "./js/sub/footer.js",
+    "./js/sub/gallery.js",
+    "./js/sub/script.js"
+];
 
-function loadScripts(script) {
-    let scriptDiv = document.createElement('script');
-    scriptDiv.src = script;
-    scriptDiv.async = false;
+function loadScripts(scriptSrc) {
+    return new Promise(function (resolve, reject) {
+        let scriptDiv = document.createElement('script');
+        scriptDiv.src = scriptSrc;
+        scriptDiv.async = false;
+        scriptDiv.onload = () => resolve(scriptSrc);
+        scriptDiv.onerror = () => reject(scriptSrc);
 
-    // console.log(scriptDiv);
+        document.head.appendChild(scriptDiv);
+        // console.log(document.head);
+        // console.log(document.body);
 
-    document.head.appendChild(scriptDiv)
+    });
 }
 
-for(let script of scripts) {
-    loadScripts(script);
-    // console.log(script);
-}
+let promises = [];
+scripts.forEach(function (script) {
+    promises.push(loadScripts(script));
+});
 
-// class Scripts extends HTMLScriptElement {
-//     constructor() {
-//         super();
-//     }
+// console.log(promises);
 
-//     connectedCallback() {
-//         this.innerHTML += `<script src="./js/script.js"></script>
-//         <script src="./js/navbar.js"></script>
-//         `;
-//         console.log(this);
-//     }
-// }
-// customElements.define('scripts-import', Scripts);
+Promise.all(promises)
+    .then(() => console.log('All Scripts Loaded'))
+    .catch((script) => console.log(script + ' failed'))
+
+
 
