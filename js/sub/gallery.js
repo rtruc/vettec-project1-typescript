@@ -5,8 +5,9 @@ let currentlyZoomedImage;
 function buildPhotoGallery() {
     
     filePaths = [
-        ['./img/staging/Training/', 'Training.csv'],
-        ['./img/staging/Training/', 'Training.csv']
+        ['./img/photos/early_life/', 'early_life.csv'],
+        ['./img/photos/training/', 'training.csv'],
+        ['./img/photos/bataan/', 'bataan.csv']
     ]
 
     for(let filePath of filePaths) {
