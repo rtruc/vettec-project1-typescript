@@ -1,60 +1,79 @@
 // All images should be sized appropriately and have alternative text displayed should the image fail to render
-let images;
+// let images;
 let currentlyZoomedImage;
 const thumbnailQuality = "_thumbnail";
 const zoomQuality = "_medium";
+let shadowBox;
+
+let gallerySections = [];
+const sectionsIDs = [
+    { number: '0', name: 'early_life' },
+    { number: '1', name: 'training' },
+    { number: '2', name: 'bataan' },
+    { number: '3', name: 'japan' },
+    { number: '4', name: 'college_years' },
+    { number: '5', name: 'california' },
+    { number: '6', name: 'family' }
+];
 
 function buildPhotoGallery() {
-    const sections = [
-                    'early_life',
-                    'training',
-                    'bataan',
-                    'japan',
-                    'college_years',
-                    'california',
-                    'family'
-    ];
-    
-    
-    
     let promises = []
-    sections.forEach(section => {
-        let filePath = [`./img/photos/${section}/`, `${section}.csv`]
-        promises.push(fetchCSVFileAndBuildGallerySection(...filePath));
+    sectionsIDs.forEach(section => {
+        promises.push(fetchCSVFileAndBuildGallerySection(section));
     })
 
     Promise.all(promises)
-        .then(result => console.log(result)) //'Galleries loaded'
+        .then(() => assembleSectionsInOrder())
+        .then(() => enableClickToZoomOnImages())
         .catch(section => console.log(section + ' failed'));
-
-    // for(let section of sections) {
-    //     let filePath = [`./img/photos/${section}/`, `${section}.csv`]
-    //     fetchCSVFileAndBuildGallerySection(...filePath);
-    // }
 }
 
-function fetchCSVFileAndBuildGallerySection(filePath, fileName) {
-    fetch(filePath + fileName)
+function assembleSectionsInOrder() {
+    console.log(gallerySections);
+
+    // Sort Sections
+    gallerySections.sort((s1, s2) => {
+        if (s1.id < s2.id) {
+            return -1;
+        }
+        if (s1.id > s2.id) {
+            return 1;
+        }
+        return 0;
+    });
+
+    for (let section of gallerySections) {
+        appendPhotoSectionToGallery(section);
+    }
+}
+
+function fetchCSVFileAndBuildGallerySection(section) {
+    let filePath = `./img/photos/${section.name}/`;
+    let fileName = `${section.name}.csv`;
+
+    return (fetch(filePath + fileName)
         .then(response => response.text())
         .then(responseText => parseCSVPhotoData(responseText))
-        .then(photoStrings => generatePhotoColumn(photoStrings, filePath))
-        .then(photoSection => appendPhotoSectionToGallery(photoSection))
+        .then(photoStrings => generatePhotoColumn(photoStrings, filePath, section.number))
+        // .then(photoSection => appendPhotoSectionToGallery(photoSection))
+        .then(photoSection => gallerySections.push(photoSection))
+        // .then(result => console.log(builtGallerySections)) //'Galleries loaded'
         // .then(enableClickToZoomOnImages())
-        .catch(reason => console.log("Oops!" + reason));
+        .catch(reason => console.log("Oops!" + reason)))
 }
 
-function parseCSVPhotoData(csv){
+function parseCSVPhotoData(csv) {
     let photos = [];
     splitsStrings = csv.split(/\r?\n/);
 
-    for(let entry of splitsStrings) {
+    for (let entry of splitsStrings) {
         splits = entry.split(',');
-        
+
         let photo = {};
         photo.fileName = splits[0].trim();
         photo.altText = splits[1].trim();
         photo.titleText = splits[2].trim();
-        
+
         photos.push(photo);
     }
 
@@ -67,35 +86,40 @@ function appendPhotoSectionToGallery(photoSection) {
     galleryDiv.appendChild(photoSection);
 }
 
-function generatePhotoColumn(photos, folder) {
+function generatePhotoColumn(photos, folder, sectionNumber) {
+    // BUILD COLUMN DIV TO HOLD THIS SECTION
     let columnDiv = document.createElement('div');
     columnDiv.classList.add('flex-column');
+    columnDiv.id = `section${sectionNumber}`;
 
-    // console.log(photos);
-
-    let rowMax = 3;
+    let rowMax = 4;
+    let rowMin = 3;
+    let rowCurrent = rowMin;
     let rowCount = 0;
     let rowPhotos = [];
 
-    for(let i = 0; i < photos.length; i++) {
+    for (let i = 0; i < photos.length; i++) {
         rowPhotos.push(photos[i]);
         rowCount++;
-        if(rowCount >= rowMax) {
+        if (rowCount == rowCurrent) {
             let photoRowDiv = generatePhotoRow(rowPhotos, folder);
             columnDiv.appendChild(photoRowDiv);
+            
+            console.log("row max: " + rowMax);
+            console.log("row count: " + rowCount);
 
             rowPhotos = [];
-            rowMax = rowMax == 3 ? 2 : 3;
+            rowCurrent = rowCurrent == rowMax ? rowMin : rowMax;
             rowCount = 0;
         }
     }
 
+    // Generate row for any remaining photos
     if (rowPhotos.length > 0) {
         let photoRowDiv = generatePhotoRow(rowPhotos, folder);
         columnDiv.appendChild(photoRowDiv);
     }
 
-    // console.log(columnDiv);
     return columnDiv;
 }
 
@@ -103,7 +127,7 @@ function generatePhotoColumn(photos, folder) {
 function generatePhotoRow(photos, filePath) {
     let rowDiv = document.createElement('div');
     rowDiv.classList.add("flex-row");
-    
+
     for (let photo of photos) {
         rowDiv.innerHTML += `<img class="gallery-img" 
                                   src="${filePath}${thumbnailQuality}/${photo.fileName}" 
@@ -117,83 +141,101 @@ function generatePhotoRow(photos, filePath) {
 
 
 
-function zoomImage() {
-    // If image that was clicked on is already zoomed, unzoom and return   
+function zoomImage(event) {
+
+    // STOP CLICKS PROPAGATING TO WHITE SPACE AND CANCELING ZOOM
+    event.stopPropagation();
+
+    // IF CURRENTLY ZOOMED IMAGE WAS CLICKED, UNZOOM AND RETURN   
     if (currentlyZoomedImage == this) {
+        shadowBox.style.background = 'rgba(0, 0, 0, 0.0)';
+
         this.style.transform = null;
+        
+        // DELAY RESTING Z AXIS SO ZOOMED IMAGE DOESN'T 'POP' UNDERNEATH OTHER IMAGES
         setTimeout(() => this.style.zIndex = null, 50);
+
+        // RETURN TO THUMBNAIL QUALITY
         this.src = this.src.replace(zoomQuality, thumbnailQuality);
-        // this.style.zIndex = null;
         currentlyZoomedImage = null;
         return;
     }
 
-    // If a different image is zoomed, unzoom that image and then zoom
-    // the image that was clicked on
+    // DIFFERENT IMAGE IS CURRENTLY ZOOMED, UNZOOM THAT IMAGE BEFORE PRECEDING
     if (currentlyZoomedImage) {
-        // setTimeout(() => currentlyZoomedImage.style.zIndex = null, 50);
         currentlyZoomedImage.style.transform = null;
         currentlyZoomedImage.style.zIndex = null;
         currentlyZoomedImage.src = currentlyZoomedImage.src.replace(zoomQuality, thumbnailQuality);
-
-
     }
 
-    let xScreen = window.innerWidth;
-    let yScreen = window.innerHeight;
+    // RAISE ZOOMED IMAGE ABOVE OTHER IMAGES
+    this.style.zIndex = '5';
 
-    // console.log("x: "+ xScreen + " y: " + yScreen);
-    // console.log(this.getBoundingClientRect());
+    //CALCULATE CENTER OF SCREEN FOR IMAGE
+    let screenX = window.innerWidth;
+    let screenY = window.innerHeight;
 
     let boundingRect = this.getBoundingClientRect();
-    let xDiv = boundingRect.x;
-    let yDiv = boundingRect.y;
-    let heightDiv = boundingRect.height;
-    let widthDiv = boundingRect.width;
+    let divX = boundingRect.x;
+    let divY = boundingRect.y;
+    let divHeight = boundingRect.height;
+    let divWidth = boundingRect.width;
 
-    let yTranslate = yScreen / 2 - yDiv - heightDiv / 2;
-    let xTranslate = xScreen / 2 - xDiv - widthDiv / 2;
+    let yTranslate = screenY / 2 - divY - divHeight / 2;
+    let xTranslate = screenX / 2 - divX - divWidth / 2;
 
     let overscan = 100;
-    let heightMultiplier = (yScreen - overscan )/ heightDiv;
-    let widthMultiplier = (xScreen - overscan ) / widthDiv;
+    let heightMultiplier = (screenY - overscan) / divHeight;
+    let widthMultiplier = (screenX - overscan) / divWidth;
     let scaleMultiplier = heightMultiplier < widthMultiplier ? heightMultiplier : widthMultiplier;
+
+    this.style.transform = `translate(${xTranslate}px,${yTranslate}px) scale(${scaleMultiplier}) `;
     
+    // DEBUG INFO CENTERING
     // console.log("scale multi: " + scaleMultiplier);
     // console.log("Screen Width:     " + xScreen);
     // console.log("Image X Position: " + xDiv);
     // console.log('');
     // console.log("Screen Height:    " + yScreen);
     // console.log("Image Y Position: " + yDiv);
-    
-    this.style.transform = `translate(${xTranslate}px,${yTranslate}px) scale(${scaleMultiplier}) `;
 
-    // let newSrc = "";
-    // newSrc.replace('_small', '_large');
-    // console.log(this.src);
-    // console.log(newSrc);
-    
+    // USE HIGHER QUALITY IMAGE FOR ZOOM
     this.src = this.src.replace(thumbnailQuality, zoomQuality);
-    // let newSrc = this.src.replace('_small', '_large');
-    // this.src = newSrc;
 
-    this.style.zIndex = '5';
-
+    shadowBox.style.background = 'rgba(0, 0, 0, 0.604)';
     currentlyZoomedImage = this;
 }
 
-function enableClickToZoomOnImages() {
-    images = document.getElementsByClassName("gallery-img");
-    for (let i = 0; i < images.length; i++) {
-        images[i] = images[i].addEventListener('click', zoomImage);
+function whitespaceClicked() {
+    console.log("clicked");
+    if (currentlyZoomedImage) {
+        // setTimeout(() => currentlyZoomedImage.style.zIndex = null, 50);
+        shadowBox.style.background = 'rgba(0, 0, 0, 0.0)';
+        currentlyZoomedImage.style.transform = null;
+        currentlyZoomedImage.style.zIndex = null;
+        currentlyZoomedImage.src = currentlyZoomedImage.src.replace(zoomQuality, thumbnailQuality);
+        currentlyZoomedImage = null;
     }
+}
+
+function enableClickToZoomOnImages() {
+    let images = document.getElementsByClassName("gallery-img");
+    for (let i = 0; i < images.length; i++) {
+        images[i].addEventListener('click', zoomImage);
+    }
+
+    let gallery = document.getElementById('gallery');
+    gallery.addEventListener('click', whitespaceClicked);
+
+
 }
 
 
 window.addEventListener('load', () => {
 
     buildPhotoGallery();
+    shadowBox = document.getElementById('shadow-box');
 
     //FIXME: 
-    setTimeout(() => enableClickToZoomOnImages(), 1000);
+    // setTimeout(() => enableClickToZoomOnImages(), 1000);
 })
