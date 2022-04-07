@@ -1,4 +1,6 @@
 // All images should be sized appropriately and have alternative text displayed should the image fail to render
+let images;
+let currentlyZoomedImage;
 
 function buildPhotoGallery() {
     
@@ -99,9 +101,7 @@ function generatePhotoRow(photos, filePath) {
 
 
 function zoomImage() {
-    // If image that was clicked on is already zoomed, unzoom and return
-    console.log("OUCH!");
-   
+    // If image that was clicked on is already zoomed, unzoom and return   
     if (currentlyZoomedImage == this) {
         currentlyZoomedImage.classList.remove("zoom");
         currentlyZoomedImage = null;
@@ -119,10 +119,64 @@ function zoomImage() {
     // How to center image?
 }
 
+function zoomeImageAlt() {
+    // If image that was clicked on is already zoomed, unzoom and return   
+    if (currentlyZoomedImage == this) {
+        this.style.transform = null;
+        setTimeout(() => this.style.zIndex = null, 50);
+        // this.style.zIndex = null;
+        currentlyZoomedImage = null;
+        return;
+    }
+
+    // If a different image is zoomed, unzoom that image and then zoom
+    // the image that was clicked on
+    if (currentlyZoomedImage) {
+        // setTimeout(() => currentlyZoomedImage.style.zIndex = null, 50);
+        currentlyZoomedImage.style.transform = null;
+        currentlyZoomedImage.style.zIndex = null;
+
+    }
+
+    let xScreen = window.innerWidth;
+    let yScreen = window.innerHeight;
+
+    // console.log("x: "+ xScreen + " y: " + yScreen);
+    console.log(this.getBoundingClientRect());
+
+    let boundingRect = this.getBoundingClientRect();
+    let xDiv = boundingRect.x;
+    let yDiv = boundingRect.y;
+    let heightDiv = boundingRect.height;
+    let widthDiv = boundingRect.width;
+
+    let yTranslate = yScreen / 2 - yDiv - heightDiv / 2;
+    let xTranslate = xScreen / 2 - xDiv - widthDiv / 2;
+
+    let overscan = 100;
+    let heightMultiplier = (yScreen - overscan )/ heightDiv;
+    let widthMultiplier = (xScreen - overscan ) / widthDiv;
+    let scaleMultiplier = heightMultiplier < widthMultiplier ? heightMultiplier : widthMultiplier;
+    
+    console.log("scale multi: " + scaleMultiplier);
+
+    console.log("Screen Width:     " + xScreen);
+    console.log("Image X Position: " + xDiv);
+    console.log('');
+    console.log("Screen Height:    " + yScreen);
+    console.log("Image Y Position: " + yDiv);
+    
+    this.style.transform = `translate(${xTranslate}px,${yTranslate}px) scale(${scaleMultiplier}) `;
+
+    this.style.zIndex = '5';
+
+    currentlyZoomedImage = this;
+}
+
 function enableClickToZoomOnImages() {
     images = document.getElementsByClassName("gallery-img");
     for (let i = 0; i < images.length; i++) {
-        images[i] = images[i].addEventListener('click', zoomImage);
+        images[i] = images[i].addEventListener('click', zoomeImageAlt);
     }
 }
 
@@ -130,4 +184,7 @@ function enableClickToZoomOnImages() {
 window.addEventListener('load', () => {
 
     buildPhotoGallery();
+
+    //FIXME: 
+    setTimeout(() => enableClickToZoomOnImages(), 1000);
 })
