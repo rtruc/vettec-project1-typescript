@@ -1,16 +1,22 @@
 // All images should be sized appropriately and have alternative text displayed should the image fail to render
 let images;
 let currentlyZoomedImage;
+const imageQuality = "_small";
 
 function buildPhotoGallery() {
+    const sections = [
+                    'early_life',
+                    'training',
+                    'bataan',
+                    'japan',
+                    'college_years',
+                    'california',
+                    'family'
+    ];
     
-    filePaths = [
-        ['./img/photos/early_life/', 'early_life.csv'],
-        ['./img/photos/training/', 'training.csv'],
-        ['./img/photos/bataan/', 'bataan.csv']
-    ]
-
-    for(let filePath of filePaths) {
+    
+    for(let section of sections) {
+        let filePath = [`./img/photos/${section}/`, `${section}.csv`]
         fetchCSVFileAndBuildGallerySection(...filePath);
     }
 }
@@ -54,7 +60,7 @@ function generatePhotoColumn(photos, folder) {
     let columnDiv = document.createElement('div');
     columnDiv.classList.add('flex-column');
 
-    console.log(photos);
+    // console.log(photos);
 
     let rowMax = 3;
     let rowCount = 0;
@@ -78,7 +84,7 @@ function generatePhotoColumn(photos, folder) {
         columnDiv.appendChild(photoRowDiv);
     }
 
-    console.log(columnDiv);
+    // console.log(columnDiv);
     return columnDiv;
 }
 
@@ -89,7 +95,7 @@ function generatePhotoRow(photos, filePath) {
     
     for (let photo of photos) {
         rowDiv.innerHTML += `<img class="gallery-img" 
-                                  src="${filePath}${photo.fileName}" 
+                                  src="${filePath}${imageQuality}/${photo.fileName}" 
                                   alt="${photo.altText}" 
                                   title="${photo.titleText}"/>`;
     }
@@ -100,27 +106,7 @@ function generatePhotoRow(photos, filePath) {
 
 
 
-
 function zoomImage() {
-    // If image that was clicked on is already zoomed, unzoom and return   
-    if (currentlyZoomedImage == this) {
-        currentlyZoomedImage.classList.remove("zoom");
-        currentlyZoomedImage = null;
-        return;
-    }
-
-    // If a different image is zoomed, unzoom that image and then zoom
-    // the image that was clicked on
-    if (currentlyZoomedImage) {
-        currentlyZoomedImage.classList.remove("zoom");
-    }
-    this.classList.add("zoom");
-    currentlyZoomedImage = this;
-
-    // How to center image?
-}
-
-function zoomeImageAlt() {
     // If image that was clicked on is already zoomed, unzoom and return   
     if (currentlyZoomedImage == this) {
         this.style.transform = null;
@@ -143,7 +129,7 @@ function zoomeImageAlt() {
     let yScreen = window.innerHeight;
 
     // console.log("x: "+ xScreen + " y: " + yScreen);
-    console.log(this.getBoundingClientRect());
+    // console.log(this.getBoundingClientRect());
 
     let boundingRect = this.getBoundingClientRect();
     let xDiv = boundingRect.x;
@@ -159,15 +145,23 @@ function zoomeImageAlt() {
     let widthMultiplier = (xScreen - overscan ) / widthDiv;
     let scaleMultiplier = heightMultiplier < widthMultiplier ? heightMultiplier : widthMultiplier;
     
-    console.log("scale multi: " + scaleMultiplier);
-
-    console.log("Screen Width:     " + xScreen);
-    console.log("Image X Position: " + xDiv);
-    console.log('');
-    console.log("Screen Height:    " + yScreen);
-    console.log("Image Y Position: " + yDiv);
+    // console.log("scale multi: " + scaleMultiplier);
+    // console.log("Screen Width:     " + xScreen);
+    // console.log("Image X Position: " + xDiv);
+    // console.log('');
+    // console.log("Screen Height:    " + yScreen);
+    // console.log("Image Y Position: " + yDiv);
     
     this.style.transform = `translate(${xTranslate}px,${yTranslate}px) scale(${scaleMultiplier}) `;
+
+    // let newSrc = "";
+    // newSrc.replace('_small', '_large');
+    // console.log(this.src);
+    // console.log(newSrc);
+    
+    this.src = this.src.replace('_small', '_large');
+    // let newSrc = this.src.replace('_small', '_large');
+    // this.src = newSrc;
 
     this.style.zIndex = '5';
 
@@ -177,7 +171,7 @@ function zoomeImageAlt() {
 function enableClickToZoomOnImages() {
     images = document.getElementsByClassName("gallery-img");
     for (let i = 0; i < images.length; i++) {
-        images[i] = images[i].addEventListener('click', zoomeImageAlt);
+        images[i] = images[i].addEventListener('click', zoomImage);
     }
 }
 
