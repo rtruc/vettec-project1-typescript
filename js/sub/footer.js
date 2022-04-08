@@ -6,8 +6,8 @@ class Footer extends HTMLElement {
     connectedCallback(){
         let pageTitle = document.getElementById('title').textContent;
 
-        let entries = [["http://www.linkedin.com", "LinkedIn Icon", "./img/icons/linkedin.png"],
-                       ["http://www.github.com", "Github Icon", "./img/icons/github.png"]];
+        let entries = [["https://www.linkedin.com/in/richard-truchanowicz/", "LinkedIn Icon", "./img/icons/linkedin.png"],
+                       ["https://github.com/rtruc/", "Github Icon", "./img/icons/github.png"]];
 
         for(let entry of entries) {
             this.innerHTML += `

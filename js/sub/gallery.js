@@ -1,23 +1,13 @@
-// All images should be sized appropriately and have alternative text displayed should the image fail to render
-// let images;
 let currentlyZoomedImage;
 const thumbnailQuality = "_small";
 const zoomQuality = "_large";
 let shadowBox;
-
 let gallerySections = [];
-const sectionsIDs = [
-    { number: '0', name: 'early_life' },
-    { number: '1', name: 'training' },
-    { number: '2', name: 'bataan' },
-    { number: '3', name: 'japan' },
-    { number: '4', name: 'college_years' },
-    { number: '5', name: 'california' },
-    { number: '6', name: 'family' }
-];
+
 
 const sectionHeaders = [
-    {title: 'Early Life', mapAltText:'Map of Erie, PA', mapUrl:`https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+    {
+        title: 'Early Life', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -25,7 +15,8 @@ const sectionHeaders = [
     &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
-    {title: 'Training', mapAltText:'Map of Erie, PA', mapUrl:`https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+    {
+        title: 'Training', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -33,7 +24,8 @@ const sectionHeaders = [
     &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
-    {title: 'USS Bataan', mapAltText:'Map of Erie, PA', mapUrl:`https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+    {
+        title: 'USS Bataan', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -41,7 +33,8 @@ const sectionHeaders = [
     &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
-    {title: 'Yokosuka, Japan', mapAltText:'Map of Erie, PA', mapUrl:`https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+    {
+        title: 'Japan', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -49,7 +42,8 @@ const sectionHeaders = [
     &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
-    {title: 'College Years', mapAltText:'Map of Erie, PA', mapUrl:`https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+    {
+        title: 'College Years', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -57,7 +51,8 @@ const sectionHeaders = [
     &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
-    {title: 'California', mapAltText:'Map of Erie, PA', mapUrl:`https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+    {
+        title: 'California', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -65,7 +60,8 @@ const sectionHeaders = [
     &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
-    {title: 'Family Life', mapAltText:'Map of Erie, PA', mapUrl:`https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+    {
+        title: 'Family Life', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -75,10 +71,10 @@ const sectionHeaders = [
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
 ];
 
-function buildPhotoGallery() {
+function buildPhotoGallery(listOfSections, listViewFlag) {
     let promises = []
-    sectionsIDs.forEach(section => {
-        promises.push(fetchCSVFileAndBuildGallerySection(section));
+    listOfSections.forEach(section => {
+        promises.push(fetchSectionContentListAndBuildGallerySection(section, listViewFlag));
     })
 
     Promise.all(promises)
@@ -87,24 +83,8 @@ function buildPhotoGallery() {
         .catch(section => console.log(section + ' failed'));
 }
 
-function buildTestGallerySection(testSection, orderView) {
-    let promises = []
-    testSection.forEach(section => {
-        promises.push(fetchCSVFileAndBuildGallerySection(section));
-    })
-
-    if(orderView) {
-        
-    }
-    Promise.all(promises)
-        .then(() => assembleSectionsInOrder())
-        .then(() => enableClickToZoomOnImages())
-        .catch(section => console.log(section + ' failed'));
-}
 
 function assembleSectionsInOrder() {
-    // console.log(gallerySections);
-
     // SORT SECTIONS
     gallerySections.sort((s1, s2) => {
         if (s1.id < s2.id) {
@@ -121,18 +101,15 @@ function assembleSectionsInOrder() {
     }
 }
 
-function fetchCSVFileAndBuildGallerySection(section) {
-    let filePath = `./img/photos/${section.name}/`;
+function fetchSectionContentListAndBuildGallerySection(section, listViewFlag) {
+    let path = `./img/photos/${section.name}/`;
     let fileName = `${section.name}.csv`;
 
-    return (fetch(filePath + fileName)
+    return (fetch(path + fileName)
         .then(response => response.text())
         .then(responseText => parseCSVPhotoData(responseText))
-        .then(photoStrings => generatePhotoSection(photoStrings, filePath, section.number, section.name))
-        // .then(photoSection => appendPhotoSectionToGallery(photoSection))
+        .then(photoParameters => generatePhotoSection(photoParameters, path, section.number, section.name, listViewFlag))
         .then(photoSection => gallerySections.push(photoSection))
-        // .then(result => console.log(builtGallerySections)) //'Galleries loaded'
-        // .then(enableClickToZoomOnImages())
         .catch(reason => console.log("Oops!" + reason)))
 }
 
@@ -141,14 +118,18 @@ function parseCSVPhotoData(csv) {
     splitsStrings = csv.split(/\r?\n/);
 
     for (let entry of splitsStrings) {
-        splits = entry.split(',');
 
-        let photo = {};
-        photo.fileName = splits[0].trim();
-        photo.altText = splits[1].trim();
-        photo.titleText = splits[2].trim();
+        if (entry[0] && entry[0] != '#') {
+            splits = entry.split(',');
 
-        photos.push(photo);
+            let photo = {};
+
+            photo.fileName = splits[0].trim();
+            photo.altText = splits[1].trim();
+            photo.titleText = splits[2].trim();
+
+            photos.push(photo);
+        }
     }
 
     return photos;
@@ -161,7 +142,7 @@ function appendPhotoSectionToGallery(photoSection) {
 }
 
 
-function generatePhotoSection(photos, folder, sectionNumber, sectionName) {
+function generatePhotoSection(photos, folder, sectionNumber, sectionName, listViewFlag) {
     // BUILD COLUMN DIV TO HOLD THIS SECTION
     let columnDiv = document.createElement('div');
     columnDiv.classList.add('flex-column-gallery');
@@ -182,23 +163,27 @@ function generatePhotoSection(photos, folder, sectionNumber, sectionName) {
     let rowCount = 0;
     let rowPhotos = [];
 
+    // IF LIST VIEW FLAG PASSED, ONLY ONE PHOTO PER LINE
+    if (listViewFlag) {
+        rowMax = rowMin = rowCurrent = 1;
+    }
+
     for (let i = 0; i < photos.length; i++) {
         rowPhotos.push(photos[i]);
         rowCount++;
         if (rowCount == rowCurrent) {
-            let photoRowDiv = generatePhotoRow(rowPhotos, folder);
+            let photoRowDiv = generatePhotoRow(rowPhotos, folder, listViewFlag);
             columnDiv.appendChild(photoRowDiv);
-            
-            // console.log("row max: " + rowMax);
-            // console.log("row count: " + rowCount);
 
             rowPhotos = [];
             rowCurrent = rowCurrent == rowMax ? rowMin : rowMax;
 
             // IF THERE ARE ONLY 4 PHOTOS LEFT, BUT NEXT ROW IS SET FOR ONLY 3
             // THEN CHANGE IT TO 4
-            if(rowCurrent == 3 && photos.length - 1 - i == 4){
+            if (rowCurrent == 3 && (photos.length - 1) - i == 4) {
                 rowCurrent = 4;
+            } else if ((photos.length - 1) - i == 5) {
+                rowCurrent = 3;
             }
             rowCount = 0;
         }
@@ -217,39 +202,71 @@ function generateSectionHeader(sectionNumber, sectionName) {
     let rowDiv = document.createElement('div');
     rowDiv.classList.add("flex-row-gallery-header");
 
-    // rowDiv.innerHTML += `<div class="flex-row-gallery-header" id="${sectionNumber}" name="${sectionName}">
-    //                         <div class="flex-column-gallery-header">
-    //                             <h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>
-    //                             <img class="map-header" src="${sectionHeaders[sectionNumber].mapUrl}" alt="${sectionHeaders[sectionNumber].mapAltText}">
-    //                         </div>
-    //                     </div>`
-    // rowDiv.innerHTML += `<div class="flex-column-gallery-header">
-    //                             <h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>
-    //                             <img class="map-header" src="${sectionHeaders[sectionNumber].mapUrl}" alt="${sectionHeaders[sectionNumber].mapAltText}">
-    //                         </div>`;
-    rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>
-                         <img class="map-header-img" src="${sectionHeaders[sectionNumber].mapUrl}" alt="${sectionHeaders[sectionNumber].mapAltText}">`;
+    // rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>
+    //                      <img class="map-header-img" src="${sectionHeaders[sectionNumber].mapUrl}" alt="${sectionHeaders[sectionNumber].mapAltText}">`;
+    rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>`;
     console.log(rowDiv);
     return rowDiv;
 }
 
-function generatePhotoRow(photos, filePath) {
+function generatePhotoRow(photos, filePath, listViewFlag) {
     let rowDiv = document.createElement('div');
     rowDiv.classList.add("flex-row-gallery");
 
-    // IF ONLY 1 IMAGE LEFT, ASSIGN IT SPECIAL CLASS SO IT ISN'T OVERSIZED BY ITSELF
-    if(photos.length == 1) {
-        rowDiv.innerHTML += `<img class="gallery-img-single" 
-                                  src="${filePath}${thumbnailQuality}/${photos[0].fileName}" 
-                                  alt="${photos[0].altText}" 
-                                  title="${photos[0].titleText}"/>`;
-    } else {
-        for (let photo of photos) {
-            rowDiv.innerHTML += `<img class="gallery-img" 
-                                      src="${filePath}${thumbnailQuality}/${photo.fileName}" 
-                                      alt="${photo.altText}" 
-                                      title="${photo.titleText}"/>`;
+
+    for (let photo of photos) {
+        let imageTag;
+
+
+        //KNOWN GOOD PATH BEFORE ADDING TEXT BOXES
+        // IF ONLY 1-2 IMAGES LEFT, ASSIGN SPECIAL CLASS SO NOT OVERSIZED
+        // if (photos.length == 1 || photos.length == 2) {
+        //     imageTag = `<img class="gallery-img-${photos.length}" `;
+        // } else {
+        //     imageTag = `<img class="gallery-img" `;
+        // }
+        // imageTag += `src="${filePath}${thumbnailQuality}/${photo.fileName}" 
+        //                      alt="${photo.altText}" 
+        //                      title="${photo.titleText}"/>`;
+
+
+        // EXPERIMENTAL TEXTBOX CODE PATH
+        imageTag = `<div class="gallery-img-wrapper">`;
+        // IF ONLY 1-2 IMAGES LEFT, ASSIGN SPECIAL CLASS SO NOT OVERSIZED
+        if (photos.length == 1 || photos.length == 2) {
+            imageTag += `<img class="gallery-img-${photos.length}" `;
+        } else {
+            imageTag += `<img class="gallery-img" `;
         }
+        imageTag += `src="${filePath}${thumbnailQuality}/${photo.fileName}" 
+                             alt="${photo.altText}" 
+                             title="${photo.titleText}"/>
+                            <p class="gallery-img-text">${photo.titleText}</p>
+                        </div>`;
+
+
+        // EXPERIMENTAL TEXTBOX CODE PATH
+        // imageTag = `<div class="gallery-img-wrapper">`;
+        // // IF ONLY 1-2 IMAGES LEFT, ASSIGN SPECIAL CLASS SO NOT OVERSIZED
+        // if (photos.length == 1 || photos.length == 2) {
+        //     imageTag += `<img class="gallery-img-${photos.length}" `;
+        // } else {
+        //     imageTag += `<img class="gallery-img" `;
+        // }
+        // imageTag += `src="${filePath}${thumbnailQuality}/${photo.fileName}" 
+        //                      alt="${photo.altText}" 
+        //                      title="${photo.titleText}"/>
+        //                     <p class="gallery-img-text">${photo.titleText}</p>
+        //                 </div>`;
+
+        rowDiv.innerHTML += imageTag;
+
+        if (listViewFlag) {
+            let labelDiv = document.createElement('h4');
+            labelDiv.innerText = photos[0].fileName;
+            rowDiv.appendChild(labelDiv);
+        }
+
     }
 
 
@@ -269,7 +286,7 @@ function zoomImage(event) {
         shadowBox.style.background = 'rgba(0, 0, 0, 0.0)';
 
         this.style.transform = null;
-        
+
         // DELAY RESTING Z AXIS SO ZOOMED IMAGE DOESN'T 'POP' UNDERNEATH OTHER IMAGES
         setTimeout(() => this.style.zIndex = null, 50);
 
@@ -287,7 +304,11 @@ function zoomImage(event) {
     }
 
     // RAISE ZOOMED IMAGE ABOVE OTHER IMAGES
-    this.style.zIndex = '5';
+    this.style.zIndex = '10';
+    let parent = this.parentElement;
+
+    console.log("this", this);
+    console.log("parent", parent);
 
     //CALCULATE CENTER OF SCREEN FOR IMAGE
     let screenX = window.innerWidth;
@@ -308,7 +329,7 @@ function zoomImage(event) {
     let scaleMultiplier = heightMultiplier < widthMultiplier ? heightMultiplier : widthMultiplier;
 
     this.style.transform = `translate(${xTranslate}px,${yTranslate}px) scale(${scaleMultiplier}) `;
-    
+
     // DEBUG INFO CENTERING
     // console.log("scale multi: " + scaleMultiplier);
     // console.log("Screen Width:     " + xScreen);
@@ -337,9 +358,16 @@ function whitespaceClicked() {
 }
 
 function enableClickToZoomOnImages() {
-    let images = document.getElementsByClassName("gallery-img");
-    for (let i = 0; i < images.length; i++) {
-        images[i].addEventListener('click', zoomImage);
+    let galleryImg = document.getElementsByClassName("gallery-img");
+    let galleryImg1 = document.getElementsByClassName("gallery-img-1");
+    let galleryImg2 = document.getElementsByClassName("gallery-img-2");
+    
+    let allGalleryImages = [].concat(Array.from(galleryImg))
+                             .concat(Array.from(galleryImg1))
+                             .concat(Array.from(galleryImg2));
+
+    for(let img of allGalleryImages) {
+        img.addEventListener('click', zoomImage);
     }
 
     let gallery = document.getElementById('gallery');
@@ -351,17 +379,23 @@ function enableClickToZoomOnImages() {
 
 window.addEventListener('load', () => {
 
-    if( document.getElementById('title').textContent == "My Journey") {
-        shadowBox = document.getElementById('shadow-box');
-        
-        let testSection = null;
-        // testSection = [sectionsIDs[0]];
+    if (document.getElementById('title').textContent == "My Journey") {
+        const sectionsIDs = [
+            { number: '0', name: 'early_life' },
+            { number: '1', name: 'training' },
+            { number: '2', name: 'bataan' },
+            { number: '3', name: 'japan' },
+            { number: '4', name: 'college_years' },
+            { number: '5', name: 'california' },
+            { number: '6', name: 'family' }
+        ];
 
-        if (testSection) {
-            buildTestGallerySection(testSection);
-        } else {
-            buildPhotoGallery();
-        }
+        shadowBox = document.getElementById('shadow-box');
+
+        // buildPhotoGallery(sectionsIDs);
+        buildPhotoGallery([sectionsIDs[0]], false);
+        // buildPhotoGallery([sectionsIDs[2]], true);
+
 
     }
 })

@@ -74,22 +74,81 @@
     bottom: -5px;
 }
 
-.gallery-img,
-.gallery-img-single {
+.gallery-img-wrapper {
+    /* position: relative;
+    height: 200px;
+    width: 257px; */
+
+    position: relative;
+
     max-width: 100%;
     min-width: 10%;
     max-height: 500px;
     border-radius: 10px;
     transition:transform 0.25s ease;
 }
+.gallery-img-text {
+    display: flex;
 
-.gallery-img-single {
+    justify-content: center;
+    align-items: center;
+
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    /* position: relative; */
+    /* top: 50%;
+    left: 50%; */
+    /* transform: translate(-50%, -50%); */
+    text-align: center;
+    /* display: inline; */
+    /* max-height: inherit;
+    max-width: inherit; */
+    color: white;
+    background: rgba(67, 67, 67, 0.72);
+    /* color: #fff; */
+    /* visibility: hidden; */
+    opacity: 0;
+    border-radius: 10px;
+
+    padding-top: auto;
+
+    margin-top: 0px;
+    margin-bottom: 0px;
+
+    pointer-events: none;
+  
+    transition: opacity .2s, visibility .2s;
+  }
+  
+  .gallery-img-wrapper:hover .gallery-img-text {
+    /* visibility: visible; */
+    opacity: 1;
+  }
+
+.gallery-img,
+.gallery-img-1,
+.gallery-img-2 {
+    max-width: 100%;
+    min-width: 10%;
+    max-height: 500px;
+    border-radius: 10px;
+    transition:transform 0.25s ease;
+}
+.gallery-img-1 {
     max-height: 400px;
+}
+.gallery-img-2 {
+    max-height: 300px;
 }
 
 
 
-.gallery-img:hover{
+.gallery-img:hover,
+.gallery-img-1:hover,
+.gallery-img-2:hover{
     cursor: pointer;
 }
 

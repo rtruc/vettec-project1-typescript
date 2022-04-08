@@ -111,11 +111,11 @@ hr {
     /* margin-top: 0px; */
 }
 
-.flex-row-two-wide,
-.flex-row-two-wide-center-aligned {
+.flex-row-two-wide {
     display: flex;
     flex-direction: row;
-    flex-wrap: no-wrap;
+    /* flex-wrap: no-wrap; */
+    flex-wrap: wrap;
 
     justify-content: space-evenly;
     gap: 20px;
@@ -125,7 +125,14 @@ hr {
 
 .flex-row-two-wide-center-aligned {
     align-items: center;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
 
+    justify-content: center;
+    gap: 20px;
+
+    align-items: top;
 }
 
 .flex-row-three-wide {
@@ -141,6 +148,7 @@ hr {
 .image-small {
     max-width: 100%;
     /* min-width: 10%; */
+    height: auto;
     max-height: 150px;
     border-radius: 10px;
     /* align-self: center; */
@@ -153,6 +161,7 @@ hr {
 
 .box-art {
     max-width: 100%;
+    min-width: 10%;
     max-height: 150px;
     border-radius: 2px;
 }
