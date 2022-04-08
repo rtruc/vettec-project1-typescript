@@ -1,27 +1,131 @@
-.flex-column {
+.flex-column,
+.flex-column-medium,
+.flex-column-large,
+.flex-column-article {
     display: flex;
     flex-direction: column;
     margin: auto;
+/* 
     margin-top: 40px;
     padding-top: 10px;
+    margin-bottom: 35px; */
 
-    margin-bottom: 35px;
- 
     flex-wrap: no-wrap;
 
     gap: 10px;
 
     align-items: center;
-    max-width: 1250px;
+    max-width: 1280px;
 }
 
-.flex-row {
+.flex-column-article {
+    
+    margin-top: 50px;
+    padding-top: 10px;
+    margin-bottom: 35px;
+    /* gap: 100px; */
+}
+
+hr {
+    /* flex-grow: 100; */
+    width: 100%;
+}
+.flex-column-small {
+    max-width: 300px;
+    align-items: top;
+    justify-content: center;
+}
+
+.flex-column-medium {
+    max-width: 450px;
+    margin: 0px 20px;
+}
+.flex-column-medium-large {
+    max-width: 600px;
+    margin: 0px 20px;
+}
+
+.flex-column-large {
+    max-width: 1000px;
+    /* justify-content: center; */
+}
+
+.flex-column-article h1,
+.flex-column-article h3,
+.flex-column-medium-large h4 {
+    /* background-color: aquamarine; */
+    margin-top: 10px;
+    margin-bottom: 0px;
+}
+
+.flex-column-medium p {
+    margin-top: 0px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.flex-column-medium-large p, 
+.flex-column-small p 
+{
+    margin-top: 5px;
+}
+
+/* .flex-column-article p {
+    margin: 15px;
+} */
+
+.flex-column-small h3,
+.flex-column-medium-large h4 {
+    text-align: center;
+    /* margin-top: 0px; */
+}
+
+.flex-row-two-wide{
     display: flex;
     flex-direction: row;
     flex-wrap: no-wrap;
 
     justify-content: space-evenly;
-    gap: 10px;
+    gap: 20px;
 
-    align-items: center;
+    align-items: top;
+}
+
+.flex-row-three-wide {
+    max-width: 1000px;
+    gap: 30px;
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-evenly;
+}
+
+
+.image-small {
+    max-width: 100%;
+    min-width: 10%;
+    max-height: 200px;
+    border-radius: 10px;
+}
+
+.image-medium {
+    max-width: 100%;
+    min-width: 10%;
+    max-height: 400px;
+    border-radius: 10px;
+}
+
+.image-large {
+    max-width: 100%;
+    min-width: 10%;
+    max-height: 600px;
+    border-radius: 10px;
+}
+
+.caption {
+    margin-top: 0px;
+}
+
+body {
+    background-color: rgb(238, 238, 238);
 }

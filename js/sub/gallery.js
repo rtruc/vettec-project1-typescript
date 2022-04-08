@@ -89,7 +89,7 @@ function appendPhotoSectionToGallery(photoSection) {
 function generatePhotoColumn(photos, folder, sectionNumber) {
     // BUILD COLUMN DIV TO HOLD THIS SECTION
     let columnDiv = document.createElement('div');
-    columnDiv.classList.add('flex-column');
+    columnDiv.classList.add('flex-column-gallery');
     columnDiv.id = `section${sectionNumber}`;
 
     let rowMax = 4;
@@ -126,7 +126,7 @@ function generatePhotoColumn(photos, folder, sectionNumber) {
 
 function generatePhotoRow(photos, filePath) {
     let rowDiv = document.createElement('div');
-    rowDiv.classList.add("flex-row");
+    rowDiv.classList.add("flex-row-gallery");
 
     for (let photo of photos) {
         rowDiv.innerHTML += `<img class="gallery-img" 
@@ -233,9 +233,8 @@ function enableClickToZoomOnImages() {
 
 window.addEventListener('load', () => {
 
-    buildPhotoGallery();
-    shadowBox = document.getElementById('shadow-box');
-
-    //FIXME: 
-    // setTimeout(() => enableClickToZoomOnImages(), 1000);
+    if( document.getElementById('title').textContent == "My Journey") {
+        buildPhotoGallery();
+        shadowBox = document.getElementById('shadow-box');
+    }
 })

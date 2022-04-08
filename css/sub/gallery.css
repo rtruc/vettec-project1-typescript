@@ -1,3 +1,30 @@
+.flex-column-gallery {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 40px;
+    padding-top: 10px;
+
+    margin-bottom: 35px;
+
+    flex-wrap: no-wrap;
+
+    gap: 10px;
+
+    align-items: center;
+    max-width: 1250px;
+}
+
+.flex-row-gallery {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: no-wrap;
+
+    justify-content: space-evenly;
+    gap: 10px;
+
+    align-items: center;
+}
 
 .gallery-img {
     max-width: 100%;
@@ -5,8 +32,9 @@
     max-height: 500px;
     border-radius: 10px;
     transition:transform 0.25s ease;
-
 }
+
+
 
 .gallery-img:hover{
     cursor: pointer;
