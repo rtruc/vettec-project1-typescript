@@ -42,6 +42,8 @@
     text-decoration: none;
     color: white;
     transition: background-color .2s ease-out 100ms;
+    position: relative;
+
 }
 .nav-item a:hover {
     background-color: rgb(203, 201, 201);
@@ -113,6 +115,55 @@
 .search-form {
     margin-right: 10px;
 }
+
+
+
+.menu-button {
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+  }
+  
+   .menu-button:hover, .menu-button:focus {
+    /* background-color: #2980B9; */
+  }
+  
+  .dropdown {
+    position: relative;
+    /* display: inline-block; */
+  } 
+  
+  .dropdown-menu {
+    display: none;
+    
+
+    position: absolute;
+    top: 0px;
+    background-color: rgb(128, 128, 128);
+    min-width: 90px;
+    min-height: 40px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .show {
+        display:flex;
+  }
+
+  .dropdown-content a {
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+.dropdown-content a:hover {
+    /* background-color: #ddd */
+    /* background-color: rgb(203, 201, 201); */
+    background-color: rgba(130, 129, 129, 0.895);
+
+}
+  
 
 
 @media screen and (max-width: 499px) {

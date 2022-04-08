@@ -3,11 +3,27 @@ const thumbnailQuality = "_small";
 const zoomQuality = "_large";
 let shadowBox;
 let gallerySections = [];
+let showMenu = false;
 
 
 const sectionHeaders = [
     {
-        title: 'Early Life', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+        title: 'Early Life', 
+        description:"Salutantibus vitae elit libero, a pharetra augue. Quis aute iure reprehenderit in voluptate velit esse. Excepteur sint obcaecat cupiditat non proident culpa.", 
+        mapAltText: 'Map of Erie, PA', 
+        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+        &zoom=6
+        &scale=2
+        &size=900x300
+        &maptype=street
+        &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
+        &format=png&visual_refresh=true
+        &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
+    {
+        title: 'Training', 
+        description: "Quisque ut dolor gravida, placerat libero vel, euismod. Magna pars studiorum, prodita quaerimus. At nos hinc posthac, sitientis piros Afros.", 
+        mapAltText: 'Map of Erie, PA', 
+        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -16,7 +32,10 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'Training', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+        title: 'USS Bataan', 
+        description: "Pellentesque habitant morbi tristique senectus et netus. Ab illo tempore, ab est sed immemorabili. Mercedem aut nummos unde unde extricat, amaras.", 
+        mapAltText: 'Map of Erie, PA', 
+        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -25,7 +44,10 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'USS Bataan', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+        title: 'Japan', 
+        description: "Sed haec quis possit intrepidus aestimare tellus. Nec dubitamus multa iter quae et nos invenerat. Cum ceteris in veneratione tui montes, nascetur mus.", 
+        mapAltText: 'Map of Erie, PA', 
+        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -34,7 +56,10 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'Japan', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+        title: 'College Years', 
+        description: "Ullamco laboris nisi ut aliquid ex ea commodi consequat. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. A communi observantia non est recedendum.", 
+        mapAltText: 'Map of Erie, PA', 
+        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -43,7 +68,10 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'College Years', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+        title: 'California', 
+        description: "Curabitur blandit tempus ardua ridiculus sed magna. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Curabitur blandit tempus ardua ridiculus sed magna.", 
+        mapAltText: 'Map of Erie, PA', 
+        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -52,16 +80,10 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'California', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
-    &zoom=6
-    &scale=2
-    &size=900x300
-    &maptype=street
-    &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
-    &format=png&visual_refresh=true
-    &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
-    {
-        title: 'Family Life', mapAltText: 'Map of Erie, PA', mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
+        title: 'Family Life', 
+        description: "Me non paenitet nullum festiviorem excogitasse ad hoc. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Me non paenitet nullum festiviorem excogitasse ad hoc.", 
+        mapAltText: 'Map of Erie, PA', 
+        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
     &size=900x300
@@ -202,9 +224,13 @@ function generateSectionHeader(sectionNumber, sectionName) {
     let rowDiv = document.createElement('div');
     rowDiv.classList.add("flex-row-gallery-header");
 
-    // rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>
-    //                      <img class="map-header-img" src="${sectionHeaders[sectionNumber].mapUrl}" alt="${sectionHeaders[sectionNumber].mapAltText}">`;
     rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>`;
+    rowDiv.innerHTML += `<p class="gallery-header-description">${sectionHeaders[sectionNumber].description}</p>`;
+
+    // rowDiv.innerHTML += `<img class="map-header-img" src="${sectionHeaders[sectionNumber].mapUrl}" alt="${sectionHeaders[sectionNumber].mapAltText}">`;
+
+    // rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>`;
+    // rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>`;
     console.log(rowDiv);
     return rowDiv;
 }
@@ -220,29 +246,29 @@ function generatePhotoRow(photos, filePath, listViewFlag) {
 
         //KNOWN GOOD PATH BEFORE ADDING TEXT BOXES
         // IF ONLY 1-2 IMAGES LEFT, ASSIGN SPECIAL CLASS SO NOT OVERSIZED
-        // if (photos.length == 1 || photos.length == 2) {
-        //     imageTag = `<img class="gallery-img-${photos.length}" `;
-        // } else {
-        //     imageTag = `<img class="gallery-img" `;
-        // }
-        // imageTag += `src="${filePath}${thumbnailQuality}/${photo.fileName}" 
-        //                      alt="${photo.altText}" 
-        //                      title="${photo.titleText}"/>`;
-
-
-        // EXPERIMENTAL TEXTBOX CODE PATH
-        imageTag = `<div class="gallery-img-wrapper">`;
-        // IF ONLY 1-2 IMAGES LEFT, ASSIGN SPECIAL CLASS SO NOT OVERSIZED
         if (photos.length == 1 || photos.length == 2) {
-            imageTag += `<img class="gallery-img-${photos.length}" `;
+            imageTag = `<img class="gallery-img-${photos.length}" `;
         } else {
-            imageTag += `<img class="gallery-img" `;
+            imageTag = `<img class="gallery-img" `;
         }
         imageTag += `src="${filePath}${thumbnailQuality}/${photo.fileName}" 
                              alt="${photo.altText}" 
-                             title="${photo.titleText}"/>
-                            <p class="gallery-img-text">${photo.titleText}</p>
-                        </div>`;
+                             title="${photo.titleText}"/>`;
+
+
+        // // EXPERIMENTAL TEXTBOX CODE PATH
+        // imageTag = `<div class="gallery-img-wrapper">`;
+        // // IF ONLY 1-2 IMAGES LEFT, ASSIGN SPECIAL CLASS SO NOT OVERSIZED
+        // if (photos.length == 1 || photos.length == 2) {
+        //     imageTag += `<img class="gallery-img-${photos.length}" `;
+        // } else {
+        //     imageTag += `<img class="gallery-img" `;
+        // }
+        // imageTag += `src="${filePath}${thumbnailQuality}/${photo.fileName}" 
+        //                      alt="${photo.altText}" 
+        //                      title="${photo.titleText}"/>
+        //                     <p class="gallery-img-text">${photo.titleText}</p>
+        //                 </div>`;
 
 
         // EXPERIMENTAL TEXTBOX CODE PATH
@@ -304,7 +330,7 @@ function zoomImage(event) {
     }
 
     // RAISE ZOOMED IMAGE ABOVE OTHER IMAGES
-    this.style.zIndex = '10';
+    this.style.zIndex = '5';
     let parent = this.parentElement;
 
     console.log("this", this);
@@ -355,6 +381,10 @@ function whitespaceClicked() {
         currentlyZoomedImage.src = currentlyZoomedImage.src.replace(zoomQuality, thumbnailQuality);
         currentlyZoomedImage = null;
     }
+
+    if(showMenu) {
+        hideDropMenu();
+    }
 }
 
 function enableClickToZoomOnImages() {
@@ -379,6 +409,11 @@ function enableClickToZoomOnImages() {
 
 window.addEventListener('load', () => {
 
+    let dropdownButton = document.getElementById('dropdown');
+    dropdownButton.addEventListener('mouseover', showDropMenu);
+
+    document.addEventListener('click', hideDropMenu);
+
     if (document.getElementById('title').textContent == "My Journey") {
         const sectionsIDs = [
             { number: '0', name: 'early_life' },
@@ -392,10 +427,20 @@ window.addEventListener('load', () => {
 
         shadowBox = document.getElementById('shadow-box');
 
-        // buildPhotoGallery(sectionsIDs);
-        buildPhotoGallery([sectionsIDs[0]], false);
+        buildPhotoGallery(sectionsIDs);
+        // buildPhotoGallery([sectionsIDs[0]], false);
         // buildPhotoGallery([sectionsIDs[2]], true);
 
 
     }
 })
+
+function hideDropMenu() {
+    document.getElementById("dropdown-menu").classList.remove("show");
+    showMenu = false;
+}
+
+function showDropMenu() {
+    showMenu = true;
+    document.getElementById("dropdown-menu").classList.add("show");
+  }
