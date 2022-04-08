@@ -8,9 +8,9 @@ let showMenu = false;
 
 const sectionHeaders = [
     {
-        title: 'Early Life', 
-        description:"Salutantibus vitae elit libero, a pharetra augue. Quis aute iure reprehenderit in voluptate velit esse. Excepteur sint obcaecat cupiditat non proident culpa.", 
-        mapAltText: 'Map of Erie, PA', 
+        title: 'Early Life',
+        description: "Salutantibus vitae elit libero, a pharetra augue. Quis aute iure reprehenderit in voluptate velit esse. Excepteur sint obcaecat cupiditat non proident culpa.",
+        mapAltText: 'Map of Erie, PA',
         mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
         &zoom=6
         &scale=2
@@ -20,9 +20,9 @@ const sectionHeaders = [
         &format=png&visual_refresh=true
         &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'Training', 
-        description: "Quisque ut dolor gravida, placerat libero vel, euismod. Magna pars studiorum, prodita quaerimus. At nos hinc posthac, sitientis piros Afros.", 
-        mapAltText: 'Map of Erie, PA', 
+        title: 'Training',
+        description: "Quisque ut dolor gravida, placerat libero vel, euismod. Magna pars studiorum, prodita quaerimus. At nos hinc posthac, sitientis piros Afros.",
+        mapAltText: 'Map of Erie, PA',
         mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
@@ -32,9 +32,9 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'USS Bataan', 
-        description: "Pellentesque habitant morbi tristique senectus et netus. Ab illo tempore, ab est sed immemorabili. Mercedem aut nummos unde unde extricat, amaras.", 
-        mapAltText: 'Map of Erie, PA', 
+        title: 'USS Bataan',
+        description: "Pellentesque habitant morbi tristique senectus et netus. Ab illo tempore, ab est sed immemorabili. Mercedem aut nummos unde unde extricat, amaras.",
+        mapAltText: 'Map of Erie, PA',
         mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
@@ -44,9 +44,9 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'Japan', 
-        description: "Sed haec quis possit intrepidus aestimare tellus. Nec dubitamus multa iter quae et nos invenerat. Cum ceteris in veneratione tui montes, nascetur mus.", 
-        mapAltText: 'Map of Erie, PA', 
+        title: 'Japan',
+        description: "Sed haec quis possit intrepidus aestimare tellus. Nec dubitamus multa iter quae et nos invenerat. Cum ceteris in veneratione tui montes, nascetur mus.",
+        mapAltText: 'Map of Erie, PA',
         mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
@@ -56,9 +56,9 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'College Years', 
-        description: "Ullamco laboris nisi ut aliquid ex ea commodi consequat. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. A communi observantia non est recedendum.", 
-        mapAltText: 'Map of Erie, PA', 
+        title: 'College Years',
+        description: "Ullamco laboris nisi ut aliquid ex ea commodi consequat. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. A communi observantia non est recedendum.",
+        mapAltText: 'Map of Erie, PA',
         mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
@@ -68,9 +68,9 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'California', 
-        description: "Curabitur blandit tempus ardua ridiculus sed magna. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Curabitur blandit tempus ardua ridiculus sed magna.", 
-        mapAltText: 'Map of Erie, PA', 
+        title: 'California',
+        description: "Curabitur blandit tempus ardua ridiculus sed magna. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Curabitur blandit tempus ardua ridiculus sed magna.",
+        mapAltText: 'Map of Erie, PA',
         mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
@@ -80,9 +80,9 @@ const sectionHeaders = [
     &format=png&visual_refresh=true
     &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
     {
-        title: 'Family Life', 
-        description: "Me non paenitet nullum festiviorem excogitasse ad hoc. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Me non paenitet nullum festiviorem excogitasse ad hoc.", 
-        mapAltText: 'Map of Erie, PA', 
+        title: 'Family Life',
+        description: "Me non paenitet nullum festiviorem excogitasse ad hoc. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Me non paenitet nullum festiviorem excogitasse ad hoc.",
+        mapAltText: 'Map of Erie, PA',
         mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
     &zoom=6
     &scale=2
@@ -227,10 +227,6 @@ function generateSectionHeader(sectionNumber, sectionName) {
     rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>`;
     rowDiv.innerHTML += `<p class="gallery-header-description">${sectionHeaders[sectionNumber].description}</p>`;
 
-    // rowDiv.innerHTML += `<img class="map-header-img" src="${sectionHeaders[sectionNumber].mapUrl}" alt="${sectionHeaders[sectionNumber].mapAltText}">`;
-
-    // rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>`;
-    // rowDiv.innerHTML += `<h1 class="gallery-header">${sectionHeaders[sectionNumber].title}</h1>`;
     console.log(rowDiv);
     return rowDiv;
 }
@@ -242,7 +238,6 @@ function generatePhotoRow(photos, filePath, listViewFlag) {
 
     for (let photo of photos) {
         let imageTag;
-
 
         //KNOWN GOOD PATH BEFORE ADDING TEXT BOXES
         // IF ONLY 1-2 IMAGES LEFT, ASSIGN SPECIAL CLASS SO NOT OVERSIZED
@@ -382,7 +377,7 @@ function whitespaceClicked() {
         currentlyZoomedImage = null;
     }
 
-    if(showMenu) {
+    if (showMenu) {
         hideDropMenu();
     }
 }
@@ -391,21 +386,29 @@ function enableClickToZoomOnImages() {
     let galleryImg = document.getElementsByClassName("gallery-img");
     let galleryImg1 = document.getElementsByClassName("gallery-img-1");
     let galleryImg2 = document.getElementsByClassName("gallery-img-2");
-    
+
     let allGalleryImages = [].concat(Array.from(galleryImg))
                              .concat(Array.from(galleryImg1))
                              .concat(Array.from(galleryImg2));
 
-    for(let img of allGalleryImages) {
+    for (let img of allGalleryImages) {
         img.addEventListener('click', zoomImage);
     }
 
     let gallery = document.getElementById('gallery');
     gallery.addEventListener('click', whitespaceClicked);
-
-
 }
 
+
+function hideDropMenu() {
+    document.getElementById("dropdown-menu").classList.remove("show");
+    showMenu = false;
+}
+
+function showDropMenu() {
+    showMenu = true;
+    document.getElementById("dropdown-menu").classList.add("show");
+}
 
 window.addEventListener('load', () => {
 
@@ -435,12 +438,3 @@ window.addEventListener('load', () => {
     }
 })
 
-function hideDropMenu() {
-    document.getElementById("dropdown-menu").classList.remove("show");
-    showMenu = false;
-}
-
-function showDropMenu() {
-    showMenu = true;
-    document.getElementById("dropdown-menu").classList.add("show");
-  }

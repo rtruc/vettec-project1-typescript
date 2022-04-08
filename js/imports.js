@@ -14,20 +14,12 @@ function loadScripts(scriptSrc) {
         scriptDiv.onerror = () => reject(scriptSrc);
 
         document.head.appendChild(scriptDiv);
-        // console.log(document.head);
-        // console.log(document.body);
-
     });
 }
 
 let promises = [];
 scripts.forEach(script => promises.push(loadScripts(script)));
 
-// console.log(promises);
-
 Promise.all(promises)
     .then(() => console.log('All Scripts Loaded'))
     .catch((script) => console.log(script + ' failed'))
-
-
-

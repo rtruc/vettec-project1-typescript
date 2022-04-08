@@ -5,13 +5,8 @@
     display: flex;
     flex-direction: column;
     margin: auto;
-/* 
-    margin-top: 40px;
-    padding-top: 10px;
-    margin-bottom: 35px; */
 
     flex-wrap: no-wrap;
-
     gap: 10px;
 
     align-items: center;
@@ -19,20 +14,14 @@
 }
 
 .flex-column-article {
-    
     margin-top: 50px;
     padding-top: 10px;
     margin-bottom: 35px;
-    /* gap: 100px; */
 }
 
 .column-list {
     margin-top: 0px;
 }
-/* 
-li h4 {
-    margin-bottom: 0px;
-} */
 
 .list-header {
     margin-bottom: 0px;
@@ -41,8 +30,9 @@ li h4 {
 
 hr {
     width: 100%;
-    /* margin-bottom: 20px; */
+    max-width: 1000px;
 }
+
 .flex-column-small {
     display: flex;
     flex-direction: column;
@@ -78,14 +68,10 @@ hr {
 .three-column-header,
 .spacey-header{
     text-align: center;
-    /* background-color: aquamarine; */
     margin-top: 10px;
     margin-bottom: 10px;
 }
 
-/* .flex-column-large h3 {
-    text-align: left;
-} */
 
 .flex-column-medium p {
     margin-top: 0px;
@@ -94,15 +80,12 @@ hr {
 }
 
 .flex-column-medium-large p, 
-.flex-column-small p 
-{
+.flex-column-small p {
     margin-top: 5px;
 }
 
-.centered
-{
+.centered {
     text-align: center;
-    /* margin-top: 0px; */
 }
 
 .flex-row-two-wide {
@@ -127,7 +110,7 @@ hr {
     gap: 20px;
 }
 
-.list-row{
+.list-row {
     display: flex;
     flex-direction: row;
     align-items: top;

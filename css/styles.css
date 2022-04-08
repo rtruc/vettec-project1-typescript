@@ -4,8 +4,10 @@
 @import "./sub/footer.css";
 @import url(http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext);
 
-div {
+body {
     font-family: 'Lato', sans-serif;
-
 }
-/* <link href="http://fonts.googleapis.com/css?family=Lato&subset=latin,latin-ext" rel="stylesheet" type="text/css"> */
+/* Thanks Tiff! */
+html{
+    scroll-behavior: smooth;
+}

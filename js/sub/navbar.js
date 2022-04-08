@@ -15,16 +15,16 @@ class NavBar extends HTMLElement {
 
             let link;
 
+            // IF ENTRY FOR CURRENT PAGE, DON'T ASSIGN LINK
+            // ASSIGN TAG FOR JAVASCRIPT
             if(entry[2] != pageTitle) {
                 link = `href="${entry[1]}"`;
             } else {
                 link = `id="active"`;
             }   
 
-            
+            // IF GALLERY PAGE, GENERATE GALLERY LINKS
             if (pageTitle == entry[2] && entry[2] == "My Journey") {
-
-
                 this.innerHTML += `<div id="dropdown" class="${entry[0]}"><a ${link}>${entry[2]}</a>
                 <div id="dropdown-menu" class="dropdown-menu">
                 <a class="menu-button" href="#section0">Early Life</a>
