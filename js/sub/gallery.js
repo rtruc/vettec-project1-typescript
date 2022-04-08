@@ -9,76 +9,22 @@ let showMenu = false;
 const sectionHeaders = [
     {
         title: 'Early Life',
-        description: "Salutantibus vitae elit libero, a pharetra augue. Quis aute iure reprehenderit in voluptate velit esse. Excepteur sint obcaecat cupiditat non proident culpa.",
-        mapAltText: 'Map of Erie, PA',
-        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
-        &zoom=6
-        &scale=2
-        &size=900x300
-        &maptype=street
-        &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
-        &format=png&visual_refresh=true
-        &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
+        description: "Salutantibus vitae elit libero, a pharetra augue. Quis aute iure reprehenderit in voluptate velit esse. Excepteur sint obcaecat cupiditat non proident culpa."},
     {
         title: 'Training',
-        description: "Quisque ut dolor gravida, placerat libero vel, euismod. Magna pars studiorum, prodita quaerimus. At nos hinc posthac, sitientis piros Afros.",
-        mapAltText: 'Map of Erie, PA',
-        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
-    &zoom=6
-    &scale=2
-    &size=900x300
-    &maptype=street
-    &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
-    &format=png&visual_refresh=true
-    &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
+        description: "Quisque ut dolor gravida, placerat libero vel, euismod. Magna pars studiorum, prodita quaerimus. At nos hinc posthac, sitientis piros Afros."},
     {
         title: 'USS Bataan',
-        description: "Pellentesque habitant morbi tristique senectus et netus. Ab illo tempore, ab est sed immemorabili. Mercedem aut nummos unde unde extricat, amaras.",
-        mapAltText: 'Map of Erie, PA',
-        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
-    &zoom=6
-    &scale=2
-    &size=900x300
-    &maptype=street
-    &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
-    &format=png&visual_refresh=true
-    &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
+        description: "Pellentesque habitant morbi tristique senectus et netus. Ab illo tempore, ab est sed immemorabili. Mercedem aut nummos unde unde extricat, amaras."},
     {
         title: 'Japan',
-        description: "Sed haec quis possit intrepidus aestimare tellus. Nec dubitamus multa iter quae et nos invenerat. Cum ceteris in veneratione tui montes, nascetur mus.",
-        mapAltText: 'Map of Erie, PA',
-        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
-    &zoom=6
-    &scale=2
-    &size=900x300
-    &maptype=street
-    &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
-    &format=png&visual_refresh=true
-    &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
+        description: "Sed haec quis possit intrepidus aestimare tellus. Nec dubitamus multa iter quae et nos invenerat. Cum ceteris in veneratione tui montes, nascetur mus."},
     {
         title: 'College Years',
-        description: "Ullamco laboris nisi ut aliquid ex ea commodi consequat. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. A communi observantia non est recedendum.",
-        mapAltText: 'Map of Erie, PA',
-        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
-    &zoom=6
-    &scale=2
-    &size=900x300
-    &maptype=street
-    &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
-    &format=png&visual_refresh=true
-    &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
+        description: "Ullamco laboris nisi ut aliquid ex ea commodi consequat. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. A communi observantia non est recedendum."},
     {
         title: 'California',
-        description: "Curabitur blandit tempus ardua ridiculus sed magna. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Curabitur blandit tempus ardua ridiculus sed magna.",
-        mapAltText: 'Map of Erie, PA',
-        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
-    &zoom=6
-    &scale=2
-    &size=900x300
-    &maptype=street
-    &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
-    &format=png&visual_refresh=true
-    &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
+        description: "Curabitur blandit tempus ardua ridiculus sed magna. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Curabitur blandit tempus ardua ridiculus sed magna."},
     {
         title: 'Family Life',
         description: "Me non paenitet nullum festiviorem excogitasse ad hoc. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Me non paenitet nullum festiviorem excogitasse ad hoc.",
@@ -417,6 +363,7 @@ window.addEventListener('load', () => {
 
     document.addEventListener('click', hideDropMenu);
 
+
     if (document.getElementById('title').textContent == "My Journey") {
         const sectionsIDs = [
             { number: '0', name: 'early_life' },
@@ -431,7 +378,7 @@ window.addEventListener('load', () => {
         shadowBox = document.getElementById('shadow-box');
 
         buildPhotoGallery(sectionsIDs);
-        // buildPhotoGallery([sectionsIDs[0]], false);
+        // buildPhotoGallery([sectionsIDs[3]], false);
         // buildPhotoGallery([sectionsIDs[2]], true);
 
 
