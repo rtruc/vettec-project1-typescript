@@ -12,7 +12,7 @@
     gap: 10px;
 
     align-items: center;
-    max-width: 1250px;
+    max-width: 1400px;
 }
 
 .flex-row-gallery {
@@ -22,16 +22,22 @@
 
     justify-content: space-evenly;
     gap: 10px;
+    max-width: 1920px;
 
     align-items: center;
 }
 
-.gallery-img {
+.gallery-img,
+.gallery-img-single {
     max-width: 100%;
     min-width: 10%;
     max-height: 500px;
     border-radius: 10px;
     transition:transform 0.25s ease;
+}
+
+.gallery-img-single {
+    max-height: 400px;
 }
 
 

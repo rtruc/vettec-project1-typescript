@@ -1,8 +1,8 @@
 // All images should be sized appropriately and have alternative text displayed should the image fail to render
 // let images;
 let currentlyZoomedImage;
-const thumbnailQuality = "_thumbnail";
-const zoomQuality = "_medium";
+const thumbnailQuality = "_small";
+const zoomQuality = "_large";
 let shadowBox;
 
 let gallerySections = [];
@@ -110,6 +110,12 @@ function generatePhotoColumn(photos, folder, sectionNumber) {
 
             rowPhotos = [];
             rowCurrent = rowCurrent == rowMax ? rowMin : rowMax;
+
+            // IF THERE ARE ONLY 4 PHOTOS LEFT, BUT NEXT ROW IS SET FOR ONLY 3
+            // THEN CHANGE IT TO 4
+            if(rowCurrent == 3 && photos.length - 1 - i == 4){
+                rowCurrent = 4;
+            }
             rowCount = 0;
         }
     }
@@ -128,12 +134,21 @@ function generatePhotoRow(photos, filePath) {
     let rowDiv = document.createElement('div');
     rowDiv.classList.add("flex-row-gallery");
 
-    for (let photo of photos) {
-        rowDiv.innerHTML += `<img class="gallery-img" 
-                                  src="${filePath}${thumbnailQuality}/${photo.fileName}" 
-                                  alt="${photo.altText}" 
-                                  title="${photo.titleText}"/>`;
+    // IF ONLY 1 IMAGE LEFT, ASSIGN IT SPECIAL CLASS SO IT ISN'T GARGANTUAN BY ITSELF
+    if(photos.length == 1) {
+        rowDiv.innerHTML += `<img class="gallery-img-single" 
+                                  src="${filePath}${thumbnailQuality}/${photos[0].fileName}" 
+                                  alt="${photos[0].altText}" 
+                                  title="${photos[0].titleText}"/>`;
+    } else {
+        for (let photo of photos) {
+            rowDiv.innerHTML += `<img class="gallery-img" 
+                                      src="${filePath}${thumbnailQuality}/${photo.fileName}" 
+                                      alt="${photo.altText}" 
+                                      title="${photo.titleText}"/>`;
+        }
     }
+
 
     return rowDiv;
 }
