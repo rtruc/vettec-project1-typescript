@@ -27,16 +27,7 @@ const sectionHeaders = [
         description: "Curabitur blandit tempus ardua ridiculus sed magna. Petierunt uti sibi concilium totius Galliae in diem certam indicere. Curabitur blandit tempus ardua ridiculus sed magna."},
     {
         title: 'Family Life',
-        description: "Me non paenitet nullum festiviorem excogitasse ad hoc. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Me non paenitet nullum festiviorem excogitasse ad hoc.",
-        mapAltText: 'Map of Erie, PA',
-        mapUrl: `https://maps.googleapis.com/maps/api/staticmap?   center=Erie+PA
-    &zoom=6
-    &scale=2
-    &size=900x300
-    &maptype=street
-    &key=AIzaSyDFY_jfeAFfIZ1oqs7Eo8_3OGww91eD7-4
-    &format=png&visual_refresh=true
-    &markers=size:tiny%7Ccolor:0xff0000%7Clabel:1%7CErie+PA`},
+        description: "Me non paenitet nullum festiviorem excogitasse ad hoc. Lorem ipsum dolor sit amet, consectetur adipisici elit, sed eiusmod tempor incidunt ut labore et dolore magna aliqua. Me non paenitet nullum festiviorem excogitasse ad hoc."},
 ];
 
 function buildPhotoGallery(listOfSections, listViewFlag) {
