@@ -9,7 +9,7 @@ export class NavBar extends HTMLElement {
 
         let entries = [["./index.html", "Home"],
             ["./about-me.html", "About Me"],
-            ["./journey.html", "My Journey"]];
+            ["./gallery.html", "Gallery"]];
 
         // PAGE LINKS
         for (let entry of entries) {
@@ -22,7 +22,7 @@ export class NavBar extends HTMLElement {
                                             link = `href="${entry[0]}"`;
 
             // IF GALLERY PAGE, GENERATE ANCHOR FOR GALLERY LINKS
-            if (pageTitle === entry[1] && entry[1] === "My Journey") {
+            if (pageTitle === entry[1] && entry[1] === "Gallery") {
                 this.innerHTML +=   `<div id="dropdown" class="nav-item"><a ${link}>${entry[1]}</a>
                                         <div id="dropdown-menu" class="dropdown-menu">
                                         </div>
