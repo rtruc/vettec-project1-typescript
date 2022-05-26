@@ -5,15 +5,10 @@ import { Photo, Section } from "./gallery/model/model";
 
 let gallerySections: HTMLDivElement[] = [];
 const listViewFlag = false; 
-
-const galleryRootDir = "./img/gallery/";
-
-
- 
+const galleryRootDir = "./img/gallery/stock/";
 
 
 
-// ** ENTRY POINT
 window.addEventListener('load', () => {
 
     if (document.getElementById('gallery')) {        
@@ -30,15 +25,17 @@ window.addEventListener('load', () => {
     }
 })
 
+
 function whitespaceClicked() {
     hideDropdownMenu();
     unzoomImage();
 }
 
+
 export function buildPhotoGallery(galleryCSV: string) {
     
     fetch(galleryRootDir + "gallery.json")
-        .then(respsonse => respsonse.json())
+        .then(response => response.json())
         .then(json => parseSectionJSON(json))
         .then(sectionData => buildPhotoGallerySections(sectionData))
         .catch(reason => console.log("JSON fetch failed: ", reason))
@@ -46,7 +43,6 @@ export function buildPhotoGallery(galleryCSV: string) {
 
 
 // ** BUILD AND ASSEMBLE SECTIONS
-// ******************************
 function buildPhotoGallerySections(sections: Section[]) {
     let promises: any = []
 
@@ -57,7 +53,6 @@ function buildPhotoGallerySections(sections: Section[]) {
     Promise.all(promises)
         .then(() => assembleSectionsInOrder())
         .then(() => enableClickToZoomOnImages())
-        // .then(() => generateDropdownNavigationMenu())
         .catch(section => console.log(section + ' failed'));
 
     generateDropdownNavigationMenu(sections);
@@ -70,7 +65,6 @@ function fetchSectionContentListAndBuildGallerySection(section: Section) {
 
     return (fetch(path + fileName)
         .then(response => response.json())
-        // .then(responseText => parsePhotosCSV(responseText))
         .then(json => parsePhotosJSON(json))
         .then(photoParameters => generatePhotoSection(photoParameters, path, section))
         .then(photoSection => gallerySections.push(photoSection))
@@ -82,7 +76,8 @@ function generatePhotoSection(photos: Photo[] | null, folder: string, section: S
     // BUILD COLUMN DIV TO HOLD THIS SECTION
     let columnDiv = document.createElement('div');
     columnDiv.classList.add('flex-column-gallery');
-    columnDiv.id = `section${section.number}`;
+    // columnDiv.id = `section${section.number}`;
+    columnDiv.id = `${section.number}`;
     columnDiv.setAttribute('name', section.title);
 
     //GENERATE AND ATTACH HEADER HERE
@@ -156,8 +151,6 @@ function generatePhotoRow(photos: Photo[], filePath: string) {
     for (let photo of photos) {
         let imageTag;
 
-        //KNOWN GOOD PATH BEFORE ADDING TEXT BOXES
-        // IF ONLY 1-2 IMAGES LEFT, ASSIGN SPECIAL CLASS SO NOT OVER-SIZED
         if (photos.length === 1 || photos.length === 2) {
             imageTag = `<img class="gallery-img-${photos.length}" `;
         } else {
@@ -183,17 +176,7 @@ function generatePhotoRow(photos: Photo[], filePath: string) {
 
 
 function assembleSectionsInOrder() {
-    // SORT SECTIONS BY HTML ID
-    // ID SET TO <SECTION NUMBER> WHEN CREATED
-    gallerySections.sort((s1, s2) => {
-        if (s1.id < s2.id) {
-            return -1;
-        }
-        if (s1.id > s2.id) {
-            return 1;
-        }
-        return 0;
-    });
+    gallerySections.sort((s1, s2) => parseInt(s1.id) - parseInt(s2.id))
 
     for (let section of gallerySections) {
         appendPhotoSectionToGallery(section);

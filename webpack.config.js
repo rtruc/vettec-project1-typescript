@@ -2,6 +2,7 @@ const path = require('path');
 
 module.exports = {
     mode: "production",
+    devtool: "source-map",
     entry: path.resolve(__dirname, './ts/index.ts'),
     module: {
         rules: [
@@ -18,23 +19,8 @@ module.exports = {
     output: {
         filename: 'index.js',
         path: path.resolve(__dirname, 'js'),
+        clean: true,
     },
 
-    entry: path.resolve(__dirname, './css/index.css'),
-    module: {
-        rules: [
-            {
-                test: /\.css$/i,
-                use: 'css-loader',
-                exclude: /node_modules/,
-            },
-        ],
-    },
-    resolve: {
-        extensions: ['.css'],
-    },
-    output: {
-        filename: 'styles.css',
-        path: path.resolve(__dirname, 'css'),
-    },
+    
 };
