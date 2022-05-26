@@ -1,0 +1,11 @@
+{
+    "compilerOptions": {
+        "outDir": "js",
+        "target": "es6",
+        "module": "es6",
+        "strict": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "inlineSourceMap": true
+    }
+}
