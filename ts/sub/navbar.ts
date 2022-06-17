@@ -27,10 +27,6 @@ export class NavBar extends HTMLElement {
                                         <div id="dropdown-menu" class="dropdown-menu">
                                         </div>
                                     </div>`;
-                // this.innerHTML +=   `<div id="dropdown" class="nav-item"><a ${link}>${entry[1]}</a>
-                //                         <div id="dropdown-menu" class="dropdown-menu">
-                //                         </div>
-                //                     </div>`;
             } else {
                 this.innerHTML += `<div class="nav-item"><a ${link}>${entry[1]}</a></div>`;
             }
@@ -38,14 +34,6 @@ export class NavBar extends HTMLElement {
         
 
         }
-
-
-        // SEARCH BAR
-        // this.innerHTML +=
-        // `<form class="search-form" action="https://google.com/search" method="get">
-        //     <input type="hidden" name="sitesearch" value="https://rtruc.github.io/vettec-project1/" />
-        //     <input class="search-field" type="text" id="search" name="q" autocomplete="off" placeholder="search" />
-        // </form>`;
 
     }
 }
